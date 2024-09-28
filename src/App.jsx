@@ -65,7 +65,7 @@ function App() {
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/details" element={<Details />} />
             <Route path="/photos" element={<Photos />} />
-            <Route path='/state' element={<State />} />>
+            <Route path='/state' element={<State />} />
             <Route path="/documents" element={<Documents />} />
           </Route>
 

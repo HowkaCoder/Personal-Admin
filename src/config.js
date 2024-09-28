@@ -1,6 +1,6 @@
 // src/config.js
 const config = {
-    backendUrl: "http://127.0.0.1:3000",
+    backendUrl: "https://remont.onrender.com",
   };
   
   export default config;

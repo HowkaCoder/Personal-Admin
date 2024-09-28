@@ -3,150 +3,141 @@
     height: 100vh;
     background: white;
     display: flex;
-    overflow-y: scroll;
     flex-direction: column;
+    overflow-y: auto; /* Changed to auto for better UX */
 }
 
-.managerFirst .header {
+.headerFirst {
     width: 100%;
     height: 100px;
     background: #D2DDF8;
     display: flex;
     align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
 }
 
-.header nav {
+.navigation {
     width: 100%;
-    height: 100%;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-
+    justify-content: space-around; /* Space out navigation links evenly */
 }
 
-.header nav a {
-    font-family: 'Rubik';
+.headerButton {
+    font-family: 'Rubik', sans-serif; /* Ensure the font family is loaded */
     text-decoration: none;
-    color: black;
+    color: #333; /* Slightly darker color for better contrast */
     font-size: 24px;
-    z-index: 1;
-    position: relative; /* Позиционируем ссылку относительно её контейнера */
-    padding: 0 20px; /* Добавляем отступы внутри ссылки */
-    display: flex; /* Делаем ссылку flex-контейнером */
-    justify-content: center; /* Центрируем текст по горизонтали */
-    align-items: center; /* Центрируем текст по вертикали */
-    transition: 0.3s; /* Анимация перехода */
+    position: relative;
+    padding: 15px 20px; /* Increased padding for touch targets */
+    transition: color 0.3s; /* Smooth color transition */
 }
 
-.header nav a::before {
-    content: '';
-    width: 0;
-    height: 75px;
-    position: absolute;
-    top: 0;
-    left: 50%; /* Центрируем элемент */
-    transform: translateX(-50%) translateY(-30%); /* Смещаем элемент на половину его ширины для центрирования */
-    z-index: -1; /* Псевдоэлемент ниже текста */
-    background: #6685CF; /* Цвет квадрата */
-    transition: width 0.3s; /* Плавное изменение ширины */
-    border-radius: 20px; /* Скругленные углы */
+.headerButton:hover {
+    color: #6685CF; /* Color change on hover */
 }
 
-.header nav a:focus::before {
-    width: 204px; /* Финальная ширина квадрата при фокусе */
-    left: 50%; /* Центрируем блок по горизонтали */
-    transform: translateX(-50%) translateY(-30%)/* Центрируем псевдоэлемент относительно текста */
+.container {
+    flex: 1; /* Allow the container to grow and fill space */
+    padding: 20px; /* Added padding for better spacing */
 }
 
-.directors  {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-top: 50px;
-    flex-direction: column;
+h2 {
+    font-size: 28px;
+    margin: 20px 0; /* Added vertical margin for separation */
+    font-weight: 600;
+    color: #333; /* Ensure headings are legible */
 }
 
-.h1-back {
-    width: 1000px;
-    height: 200px;
-    background: #D2DDF880;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.h1-back h2 {
-    font-size: 40px;
-}
-
-.rolesContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
+.roleCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid layout */
+    gap: 20px; /* Spacing between cards */
 }
 
 .roleCard {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    background: #D2DDF880;
+    border-radius: 15px; /* Softer corners */
+    padding: 20px; /* Added padding */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    transition: transform 0.2s; /* Animation on hover */
+}
+
+.roleCard:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.roleCard svg {
+    width: 100px; /* Adjusted size for better fit */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 15px; /* Space below the SVG */
 }
 
 .roleInfo {
     display: flex;
-    width: 758px;
-    height: 371px;
-    background: #D2DDF880;
-    border-radius: 30px;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to start */
+    width: 100%; /* Full width of card */
 }
 
-.roleCard svg {
-    width: 200px;
-    height: 200px;
-    margin-right: 50px  ;
-}
-
-.roleInfo .info{
-    width: 80%;
-    height: 80%;
+.info {
+    width: 100%; /* Full width for info section */
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    margin-left: 20px;
-    padding: 10px;
+    justify-content: space-between; /* Space between items */
+    padding: 10px; /* Internal padding */
 }
 
 .info h2 {
-    font-weight: 500;
-    text-transform: capitalize;
+    margin: 5px 0; /* Vertical spacing for headings */
 }
 
 .info h2:nth-child(1) {
-    font-size: 24px;
+    font-size: 20px; /* Slightly smaller font size */
     font-weight: 400;
 }
 
 .info h2:nth-child(2) {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 600;
+    color: #007BFF; /* Highlight the name */
 }
 
 .info h2:nth-child(3) {
-    font-size: 24px;
+    font-size: 18px; /* Smaller size for phone number */
+    color: #555; /* Slightly muted color */
 }
 
-.roleInfo a {
-    width: 200px;
-    height: 60px;
-    font-size: 32px;
+.roleInfo button {
+    width: 100%; /* Full width button */
+    height: 40px; /* Consistent height */
+    font-size: 18px;
     background: #DD0C0C;
     color: white;
-    text-decoration: none;
-    text-align: center;
-    line-height: 60px;
-    border-radius: 30px;
-    align-self: flex-end;
-    margin-right: 30px;
-    margin-bottom: 30px;
+    border: none; /* Remove default border */
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer; /* Pointer on hover */
+    transition: background 0.3s; /* Smooth background transition */
+    margin-top: 10px; /* Space above button */
+}
+
+.roleInfo button:hover {
+    background: #b30000; /* Darken button on hover */
+}
+
+.managerFirst {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.managerFirst .container {
+    margin-top: 50px;
+}
+ 
+.managerFirst .headerFirst .navigation a {
+    cursor: pointer;
+    user-select: none;
 }

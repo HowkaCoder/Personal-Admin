@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import './styles/ManagerFirstpage.css';
+import './styles/ManagerFifthpage.css'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import config from '../../config';
 
-const RoleCard = ({ role }) => {
+// Компонент RoleCard находится в одном файле
+const RoleCard = ({ role, onDelete }) => {
+  const handleDelete = () => {
+    if (window.confirm(`Вы уверены, что хотите удалить пользователя ${role.FirstName}?`)) {
+      onDelete(role.ID); // Передаем ID пользователя в функцию удаления
+    }
+  };
+
   return (
     <div className='roleCard'>
       <svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -19,7 +26,7 @@ const RoleCard = ({ role }) => {
           <h2>Номер: {role.PhoneNumber}</h2>
         </div>
 
-        <a href="">Удалить</a>
+        <button onClick={handleDelete}>Удалить</button>
       </div>
     </div>
   );
@@ -34,15 +41,13 @@ export default function ManagerFirstpage() {
     if (authData) {
       const parsedAuthData = JSON.parse(authData);
       setUserInfo(parsedAuthData.claims);
-      console.log(parsedAuthData)
-      
+
       axios.get(`${config.backendUrl}/users`, {
         headers: {
           'Authorization': `Bearer ${parsedAuthData.token}`
         }
       })
       .then((response) => {
-        console.log(response.data);
         setData(response.data);
       })
       .catch((error) => {
@@ -60,48 +65,59 @@ export default function ManagerFirstpage() {
     user.Roles && user.Roles.some(role => role.name === 'worker')
   );
 
+  const clients = data.filter(user => 
+    user.Roles && user.Roles.some(role => role.name === 'client')
+  );
+  // Функция для удаления пользователя
+  const handleDeleteUser = (id) => {
+    const authData = Cookies.get('authData');
+    const parsedAuthData = JSON.parse(authData);
+
+    axios.delete(`${config.backendUrl}/users/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${parsedAuthData.token}`
+      }
+    })
+    .then(() => {
+      // Удаляем пользователя из состояния data
+      setData(prevData => prevData.filter(user => user.ID !== id));
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  };
+
   return (
     <div className='managerFirst'>
-      <header className='header'>
-        <nav>
-          <Link to="#">Директоры</Link>
-          <Link to="#">Работники</Link>
-          <Link to="#">Клиенты</Link>
-        </nav>
+      <header className='headerFirst'>
+        <div className='navigation'>
+          <a href='#managersID' className='headerButton'>Список менеджеров</a>
+          <a href='#workersID' className='headerButton'>Список работников</a>
+          <a href='#clientsID' className='headerButton'>Список клиентов</a>
+        </div>
       </header>
 
-      <div className="directors">
-        <div className="h1-back">
-          <h2>Команда Директоров</h2>
+      <div className="container">
+        <h2 id='managersID'>Менеджеры</h2>
+        <div className='roleCards'>
+          {managers.map(manager => (
+            <RoleCard key={manager.ID} role={manager} onDelete={handleDeleteUser} />
+          ))}
         </div>
 
-        <div className="rolesContainer">
-            
-            {managers.length > 0 ? (
-              managers.map(manager => (
-                <RoleCard role={manager} key={manager.ID} />
-              ))
-            ) : (
-              <h1>Нет доступных менеджеров</h1>
-            )}
-          </div>
-      </div>
-
-      <div className="directors">
-        <div className="h1-back">
-          <h2>Команда Работников</h2>
+        <h2 id='workersID'>Работники</h2>
+        <div className='roleCards'>
+          {workers.map(worker => (
+            <RoleCard key={worker.ID} role={worker} onDelete={handleDeleteUser} />
+          ))}
         </div>
 
-        <div className="rolesContainer">
-            
-            {workers.length > 0 ? (
-              workers.map(worker => (
-                <RoleCard role={worker} key={worker.ID} />
-              ))
-            ) : (
-              <h1>Нет доступных менеджеров</h1>
-            )}
-          </div>
+        <h2 id='clientsID'>Клиенты</h2>
+        <div className='roleCards'>
+          {clients.map(client => (
+            <RoleCard key={client.ID} role={client} onDelete={handleDeleteUser} />
+          ))}
+        </div>
       </div>
     </div>
   );
