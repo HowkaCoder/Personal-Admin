@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './styles/ManagerFifthpage.css'
+import './styles/ManagerFirstpage.css'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
