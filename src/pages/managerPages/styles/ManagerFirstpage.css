@@ -1,0 +1,152 @@
+.managerFirst {
+    width: 100%;
+    height: 100vh;
+    background: white;
+    display: flex;
+    overflow-y: scroll;
+    flex-direction: column;
+}
+
+.managerFirst .header {
+    width: 100%;
+    height: 100px;
+    background: #D2DDF8;
+    display: flex;
+    align-items: center;
+}
+
+.header nav {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+.header nav a {
+    font-family: 'Rubik';
+    text-decoration: none;
+    color: black;
+    font-size: 24px;
+    z-index: 1;
+    position: relative; /* Позиционируем ссылку относительно её контейнера */
+    padding: 0 20px; /* Добавляем отступы внутри ссылки */
+    display: flex; /* Делаем ссылку flex-контейнером */
+    justify-content: center; /* Центрируем текст по горизонтали */
+    align-items: center; /* Центрируем текст по вертикали */
+    transition: 0.3s; /* Анимация перехода */
+}
+
+.header nav a::before {
+    content: '';
+    width: 0;
+    height: 75px;
+    position: absolute;
+    top: 0;
+    left: 50%; /* Центрируем элемент */
+    transform: translateX(-50%) translateY(-30%); /* Смещаем элемент на половину его ширины для центрирования */
+    z-index: -1; /* Псевдоэлемент ниже текста */
+    background: #6685CF; /* Цвет квадрата */
+    transition: width 0.3s; /* Плавное изменение ширины */
+    border-radius: 20px; /* Скругленные углы */
+}
+
+.header nav a:focus::before {
+    width: 204px; /* Финальная ширина квадрата при фокусе */
+    left: 50%; /* Центрируем блок по горизонтали */
+    transform: translateX(-50%) translateY(-30%)/* Центрируем псевдоэлемент относительно текста */
+}
+
+.directors  {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    flex-direction: column;
+}
+
+.h1-back {
+    width: 1000px;
+    height: 200px;
+    background: #D2DDF880;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.h1-back h2 {
+    font-size: 40px;
+}
+
+.rolesContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.roleCard {
+    display: flex;
+    align-items: center;
+}
+
+.roleInfo {
+    display: flex;
+    width: 758px;
+    height: 371px;
+    background: #D2DDF880;
+    border-radius: 30px;
+    align-items: center;
+}
+
+.roleCard svg {
+    width: 200px;
+    height: 200px;
+    margin-right: 50px  ;
+}
+
+.roleInfo .info{
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 20px;
+    padding: 10px;
+}
+
+.info h2 {
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.info h2:nth-child(1) {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.info h2:nth-child(2) {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.info h2:nth-child(3) {
+    font-size: 24px;
+}
+
+.roleInfo a {
+    width: 200px;
+    height: 60px;
+    font-size: 32px;
+    background: #DD0C0C;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    line-height: 60px;
+    border-radius: 30px;
+    align-self: flex-end;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
